@@ -1,0 +1,9 @@
+font-family = CaskaydiaMono Nerd Font
+font-size = 11
+window-width = 120
+window-height = 34
+shell-integration-features = ssh-terminfo,ssh-env
+command = /usr/bin/fish --login --interactive
+shell-integration = fish
+config-file = ?auto/theme.ghostty
+keybind = performable:ctrl+c=copy_to_clipboard
