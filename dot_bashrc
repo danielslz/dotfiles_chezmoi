@@ -1,0 +1,41 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# No terminal do agente do Kiro, evita carregar prompt/bling/starship, que mantêm
+# a sessão viva e travam comandos não-conversacionais. O terminal normal fica intacto.
+if [[ "$TERM_PROGRAM" != "kiro" ]]; then
+    # User specific aliases and functions
+    if [ -d ~/.bashrc.d ]; then
+        for rc in ~/.bashrc.d/*; do
+            if [ -f "$rc" ]; then
+                . "$rc"
+            fi
+        done
+    fi
+    unset rc
+    ### bling.sh source start
+    test -f /usr/share/ublue-os/bling/bling.sh && source /usr/share/ublue-os/bling/bling.sh
+    ### bling.sh source end
+fi
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
+
+# >>> quest-dev (Meta Quest / Spatial SDK) >>>
+# Carrega o ambiente Android/mise APENAS dentro da distrobox 'quest-dev'.
+if [ "$CONTAINER_ID" = "quest-dev" ] && [ -f "$HOME/.config/quest-dev/env.sh" ]; then
+    source "$HOME/.config/quest-dev/env.sh"
+fi
+# <<< quest-dev (Meta Quest / Spatial SDK) <<<
