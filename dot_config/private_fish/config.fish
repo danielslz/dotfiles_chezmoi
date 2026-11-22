@@ -19,4 +19,5 @@ fish_add_path $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $ANDROID_HOME/platform
 # postgresql@17 (keg-only via Homebrew) — pg_restore/pg_dump/psql
 fish_add_path -g -p /home/linuxbrew/.linuxbrew/opt/postgresql@17/bin
 
-string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+# integração de shell do Kiro IDE (só no terminal do Kiro)
+string match -q "kiro" "$TERM_PROGRAM"; and . (kiro --locate-shell-integration-path fish)
